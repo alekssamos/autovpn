@@ -25,6 +25,7 @@ func main() {
 	if len(os.Args) > 1 && len(os.Args[1]) == 2 {
 		chosenCountry = os.Args[1]
 	}
+	var tmp string = ""
 	URL := "http://www.vpngate.net/api/iphone/"
 
 	fmt.Printf("[autovpn] getting server list\n")
@@ -56,22 +57,21 @@ func main() {
 
 		fmt.Printf("[autovpn] writing config file\n")
 		if runtime.GOOS == "windows" {
-			err = ioutil.WriteFile(os.Getenv("temp")+"\\openvpn.ovpn", conf, 0)
+			tmp = os.Getenv("temp")+"\\"
+			err = ioutil.WriteFile(tmp+"openvpnconf.ovpn", conf, 0)
 		} else {
-			err = ioutil.WriteFile("/tmp/openvpn.ovpn", conf, 0664)
+			tmp = "/tmp/"
+			err = ioutil.WriteFile("openvpnconf.ovpn", conf, 0664)
 		}
 		check(err)
 		fmt.Printf("[autovpn] running openvpn\n")
 
 
-		var tmp string = ""
 		var cmd = exec.Command("")
 		if runtime.GOOS == "windows" {
-			tmp = os.Getenv("temp")+"\\"
-			cmd = exec.Command("openvpn", "--connect", tmp+"openvpn.ovpn")
+			cmd = exec.Command("openvpn", "--connect", tmp+"openvpnconf.ovpn")
 		} else {
-			tmp = "/tmp/"
-			cmd = exec.Command("sudo", "openvpn", tmp+"openvpnconf")
+			cmd = exec.Command("sudo", "openvpn", tmp+"openvpnconf.ovpn")
 		}
 		cmd.Stdout = os.Stdout
 

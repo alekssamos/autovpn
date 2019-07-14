@@ -56,9 +56,9 @@ func main() {
 
 		fmt.Printf("[autovpn] writing config file\n")
 		if runtime.GOOS == "windows" {
-			err = ioutil.WriteFile(os.Getenv("temp")+"\\openvpn.conf", conf, 0)
+			err = ioutil.WriteFile(os.Getenv("temp")+"\\openvpn.ovpn", conf, 0)
 		} else {
-			err = ioutil.WriteFile("/tmp/openvpn.conf", conf, 0664)
+			err = ioutil.WriteFile("/tmp/openvpn.ovpn", conf, 0664)
 		}
 		check(err)
 		fmt.Printf("[autovpn] running openvpn\n")
@@ -68,7 +68,7 @@ func main() {
 		var cmd = exec.Command("")
 		if runtime.GOOS == "windows" {
 			tmp = os.Getenv("temp")+"\\"
-			cmd = exec.Command("openvpn", "--connect", tmp+"openvpn.conf")
+			cmd = exec.Command("openvpn", "--connect", tmp+"openvpn.ovpn")
 		} else {
 			tmp = "/tmp/"
 			cmd = exec.Command("sudo", "openvpn", tmp+"openvpnconf")

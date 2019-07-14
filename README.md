@@ -15,7 +15,7 @@ from [VPN Gate](http://www.vpngate.net/en/).
 First clone the repo and `cd` into the directory:
 
 ```bash
-$ git clone https://github.com/adtac/autovpn
+$ git clone https://github.com/alekssamos/autovpn.git
 $ cd autovpn
 ```
 
@@ -53,6 +53,7 @@ $ export PATH=$(brew --prefix openvpn)/sbin:$PATH
 
 Tested and works on Fedora 23 and MacOS Sierra `10.12.6`. Dunno about
 Windows. Patches welcome.
+alekssamos edited: add Windows support.
 
 ### Usage
 
